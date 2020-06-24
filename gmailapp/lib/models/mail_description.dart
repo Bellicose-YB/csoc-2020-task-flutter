@@ -32,11 +32,11 @@ class Maildescription {
   }
 
   set body(String newBody){
-    this._subject=newBody;
+    this._body=newBody;
   }
 
   set date(String newDate){
-      this._subject=newDate;
+      this._date=newDate;
   }
 
   // Convert Description objects into a Map object

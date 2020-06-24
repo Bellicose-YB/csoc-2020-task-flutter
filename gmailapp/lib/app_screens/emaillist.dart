@@ -16,7 +16,7 @@ class MailList extends StatefulWidget{
 }
 
 
-class GmailListState extends State<MailList>{
+abstract class GmailListState extends State<MailList>{
   DatabaseHelper databaseHelper=DatabaseHelper();
   List<Maildescription> maillist;
   int count=0;  
@@ -56,6 +56,7 @@ class GmailListState extends State<MailList>{
       ),
     );
   }
+  
   ListView getMailListView() {
     TextStyle titleStyle = Theme.of(context).textTheme.subtitle1;
     
@@ -97,7 +98,6 @@ class GmailListState extends State<MailList>{
     if(result!=0){
       _showSnackBar(context, 'Note Deleted Successfully');
       updateListView();
-
     }
   }
 

@@ -26,7 +26,6 @@ class NoteDetailState extends State<Compose> {
   TextEditingController recieverController = TextEditingController();
 	TextEditingController subjectController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
   NoteDetailState(this.des,this.appBarTitle);
 
 	@override
@@ -36,7 +35,6 @@ class NoteDetailState extends State<Compose> {
 
       sourceController.text = des.from;
       recieverController.text = des.to;
-      dateController.text = des.date;
  	    subjectController.text = des.subject;
       emailController.text = des.body;    
 
@@ -56,29 +54,7 @@ class NoteDetailState extends State<Compose> {
 		    padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
 		    child: ListView(
 			    children: <Widget>[
-/*
-			    	// First element
-				    ListTile(
-					    title: DropdownButton(
-							    items: _priorities.map((String dropDownStringItem) {
-							    	return DropdownMenuItem<String> (
-									    value: dropDownStringItem,
-									    child: Text(dropDownStringItem),
-								    );
-							    }).toList(),
 
-							    style: textStyle,
-
-							    value: 'Low',
-
-							    onChanged: (valueSelectedByUser) {
-							    	setState(() {
-							    	  debugPrint('User selected $valueSelectedByUser');
-							    	});
-							    }
-					    ),
-				    ),
-*/
 				    // Second Element
 				    Padding(
 					    padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
@@ -276,10 +252,6 @@ class NoteDetailState extends State<Compose> {
     des.to = recieverController.text;
   }
   
-  void updatedate(){
-    des.date = dateController.text;
-  }
-  
   void updatesubject(){
     des.subject = subjectController.text;
   }
@@ -289,19 +261,18 @@ class NoteDetailState extends State<Compose> {
   }
   DatabaseHelper helper = DatabaseHelper();
   void _save() async {
-    //movetoLastScreen();
+    movetoLastScreen();
     des.date=DateFormat.yMMMd().format(DateTime.now());
     int result;
-    if(des.id!=null){
-      result = await helper.updateNote(des);
-    }else{
-      result = await helper.updateNote(des);
-    }
+    result = await helper.insertNote(des);
     if(result!=0){//Success
       _showAlertdialog('Status','email sent successfully');
     }else{//failure
       _showAlertdialog('Status','email not sent');
     }
+  }
+  movetoLastScreen(){
+    Navigator.pop(context,true);
   }
   _showAlertdialog(String title,String message){
     AlertDialog alertDialog = AlertDialog(

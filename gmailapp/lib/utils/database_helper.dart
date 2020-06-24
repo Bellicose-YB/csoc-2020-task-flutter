@@ -48,7 +48,7 @@ class DatabaseHelper {
 	void _createDb(Database db, int newVersion) async {
 
 		await db.execute('CREATE TABLE $desTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colFrom TEXT, '
-				' $colTo TEXT,$colSubject TEXT, $colBody INTEGER, $colDate TEXT)');
+				' $colTo TEXT,$colSubject TEXT, $colBody TEXT, $colDate TEXT)');
 	}
 
 	// Fetch Operation: Get all note objects from database
